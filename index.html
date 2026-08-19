@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEMA CENTRAL - ACCESO RESTRINGIDO</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- PANTALLA 1: La sala oscura -->
+    <!-- PANTALLA 1: La sala oscura con escena de interrogatorio -->
+    <div id="pantalla-login" class="pantalla activa">
+        <div class="puerta-fondo"></div>
+        <div class="cono-luz"></div>
+        
+        <!-- NUEVO: La escena detrás del cristal -->
+        <div class="escena-interrogatorio">
+            <!-- Izquierda: El Agente (Silueta oscura con sombrero) -->
+            <div class="agente">
+                <div class="cabeza-agente"></div>
+                <div class="cuerpo-agente"></div>
+            </div>
+            
+            <!-- Centro: La mesa que los divide -->
+            <div class="mesa-interrogatorio"></div>
+            
+            <!-- Derecha: El Sospechoso (Modelo sin texturas con malla 3D) -->
+            <div class="sospechoso">
+                <div class="cabeza-sospechoso"></div>
+                <div class="cuerpo-sospechoso"></div>
+            </div>
+        </div>
+
+        <!-- Caja de Login (Ahora será translúcida) -->
+        <div class="mesa-login">
+            <h2 class="texto-terminal">INICIAR SESIÓN</h2>
+            <input type="text" id="inputUsuario" placeholder="USUARIO">
+            <input type="password" id="inputPassword" placeholder="CONTRASEÑA">
+            <button id="btnIngresar">ENTRAR</button>
+            <p id="mensajeLogin" class="error-login"></p>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: El escritorio (Oculto al inicio) -->
+    <div id="pantalla-escritorio" class="pantalla oculta">
+        <main class="contenedor-escritorio">
+            
+            <div id="carpeta-fisica" class="carpeta-clasificada cerrada">
+                <div class="etiqueta-carpeta">NIVEL DE ACCESO: ALTO SECRETO</div>
+                <h1>Base de Datos de Inteligencia</h1>
+                
+                <div class="caja-busqueda">
+                    <input type="text" id="inputBusqueda" placeholder="Ingrese el alias...">
+                    <button id="btnBuscar">Extraer</button>
+                </div>
+            </div>
+
+            <!-- Aquí se inyectarán y apilarán las hojas -->
+            <div id="zona-documentos"></div>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
