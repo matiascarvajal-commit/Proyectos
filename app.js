@@ -5,14 +5,14 @@ const baseDatos = [
         rol: "Estratega / <span class='tachado'>Comandante Supremo</span>", estado: "Activo",
         ultimaAparicion: "Continente Occidental",
         curiosidades: "Sujeto altamente impredecible. Su objetivo declarado es ser un vago, pero sus acciones indican <span class='tachado'>una manipulación psicológica a gran escala</span>. Nivel de amenaza: <span class='tachado'>Nivel Dragón</span>.",
-        imagen: "img/cale.jpg"
+        imagen: "https://static.wikia.nocookie.net/trash-of-the-counts-family/images/7/72/Cale29.jpg/revision/latest?cb=20210514214537"
     },
     { 
         id: 2, nombre: "Jonathan", origen: "<span class='tachado'>Base Militar Desconocida</span> / Sector 4", 
         rol: "Sobreviviente", estado: "Paradero Desconocido",
         ultimaAparicion: "Zonas de Guerra (Registros de un diario personal)",
         curiosidades: "El sujeto no tiene relación alguna con <span class='tachado'>el Experimento Finn</span>. Los registros en su diario confirman que operaba de forma independiente.",
-        imagen: "img/jonathan.png"
+        imagen: "https://static.wikia.nocookie.net/el-diario-de-jonathan/images/0/0b/JAR.png/revision/latest?cb=20181226131138"
     },
     { 
         id: 3, nombre: "Light Yagami", origen: "Kanto, Japón", 
@@ -24,9 +24,9 @@ const baseDatos = [
     { 
         id: 4, nombre: "Leon S. Kennedy", origen: "R.P.D. / D.S.O.", 
         rol: "Agente Especial", estado: "Activo",
-        ultimaAparicion: "Misión de rescate: <span class='tachado'>Hija del Presidente, Ashley Graham</span>",
+        ultimaAparicion: "Misión: <span class='tachado'>Investigacion Virus T, Sujeto Infectado</span>",
         curiosidades: "Sobrevivió al incidente de Raccoon City. Posee autorización de seguridad de nivel <span class='tachado'>G-7</span>. Reportes indican un uso excesivo de patadas giratorias.",
-        imagen: "https://upload.wikimedia.org/wikipedia/en/5/5e/Leon_S._Kennedy.png"
+        imagen: "https://images7.alphacoders.com/140/thumb-1920-1408267.png"
     }
 ];
 
