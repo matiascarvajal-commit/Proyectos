@@ -5,28 +5,31 @@ const baseDatos = [
         rol: "Estratega / <span class='tachado'>Comandante Supremo</span>", estado: "Activo",
         ultimaAparicion: "Continente Occidental",
         curiosidades: "Sujeto altamente impredecible. Su objetivo declarado es ser un vago, pero sus acciones indican <span class='tachado'>una manipulación psicológica a gran escala</span>. Nivel de amenaza: <span class='tachado'>Nivel Dragón</span>.",
-        imagen: "https://static.wikia.nocookie.net/trash-of-the-counts-family/images/7/72/Cale29.jpg/revision/latest?cb=20210514214537"
+        imagen: "https://static.wikia.nocookie.net/trash-of-the-counts-family/images/7/72/Cale29.jpg/revision/latest?cb=20210514214537",
     },
     { 
         id: 2, nombre: "Jonathan Almendair Crespo", origen: "<span class='tachado'>Suburbios</span>", 
         rol: "Sobreviviente", estado: "Paradero Desconocido",
         ultimaAparicion: "Zonas de Guerra (Registros de un diario personal)",
         curiosidades: "El sujeto no tiene relación alguna con <span class='tachado'>el Experimento Finn</span>. Los registros en su diario confirman que operaba de forma independiente.",
-        imagen: "https://static.wikia.nocookie.net/el-diario-de-jonathan/images/0/0b/JAR.png/revision/latest?cb=20181226131138"
+        imagen: "https://static.wikia.nocookie.net/el-diario-de-jonathan/images/0/0b/JAR.png/revision/latest?cb=20181226131138",
+        imagenLocal: ""
     },
     { 
         id: 3, nombre: "Light Yagami", origen: "Kanto, Japón", 
         rol: "Estudiante / <span class='tachado'>Alias: Kira</span>", estado: "Eliminado",
         ultimaAparicion: "Almacén Yellow Box",
         curiosidades: "Responsable de la eliminación de <span class='tachado'>miles de criminales a nivel mundial</span> utilizando el artefacto designado como [ARCHIVO D.N.].",
-        imagen: "img/Light.jpg"
+        imagen: "https://wallpapers-clan.com/wp-content/uploads/2022/12/death-note-light-yagami-pfp-14.jpg",
+        imagenLocal: "img/Light.jpg"
     },
     { 
         id: 4, nombre: "Leon Scott Kennedy", origen: "R.P.D. / D.S.O.", 
         rol: "Agente Especial", estado: "Activo",
         ultimaAparicion: "Misión: <span class='tachado'>Investigacion Virus T, Sujeto Infectado</span>",
         curiosidades: "Sobrevivió al incidente de Raccoon City. Posee autorización de seguridad de nivel <span class='tachado'>G-7</span>. Reportes indican un uso excesivo de patadas giratorias.",
-        imagen: "https://images7.alphacoders.com/140/thumb-1920-1408267.png"
+        imagen: "https://images7.alphacoders.com/140/thumb-1920-1408267.png",
+        imagenLocal: "img/Leon.jpg"
     }
 ];
 
@@ -105,8 +108,8 @@ const realizarBusqueda = () => {
             <div class="sello-clasificado">CONFIDENCIAL</div>
             <div class="tarjeta-grid">
                 <div class="tarjeta-imagen">
-                    <img src="${personaje.imagen}" alt="Fotografía">
-                </div>
+                        <img src="${personaje.imagen}" onerror="this.onerror=null; this.src='${personaje.imagenLocal}';" alt="Fotografía">
+                            </div>
                 <div class="tarjeta-info">
                     <ul class="lista-datos">
                         <li><strong>SUJETO:</strong> ${personaje.nombre}</li>
