@@ -8,7 +8,7 @@ const baseDatos = [
         imagen: "https://static.wikia.nocookie.net/trash-of-the-counts-family/images/7/72/Cale29.jpg/revision/latest?cb=20210514214537"
     },
     { 
-        id: 2, nombre: "Jonathan", origen: "<span class='tachado'>Base Militar Desconocida</span> / Sector 4", 
+        id: 2, nombre: "Jonathan Almendair Crespo", origen: "<span class='tachado'>Suburbios</span>", 
         rol: "Sobreviviente", estado: "Paradero Desconocido",
         ultimaAparicion: "Zonas de Guerra (Registros de un diario personal)",
         curiosidades: "El sujeto no tiene relación alguna con <span class='tachado'>el Experimento Finn</span>. Los registros en su diario confirman que operaba de forma independiente.",
@@ -22,7 +22,7 @@ const baseDatos = [
         imagen: "img/Light.jpg"
     },
     { 
-        id: 4, nombre: "Leon S. Kennedy", origen: "R.P.D. / D.S.O.", 
+        id: 4, nombre: "Leon Scott Kennedy", origen: "R.P.D. / D.S.O.", 
         rol: "Agente Especial", estado: "Activo",
         ultimaAparicion: "Misión: <span class='tachado'>Investigacion Virus T, Sujeto Infectado</span>",
         curiosidades: "Sobrevivió al incidente de Raccoon City. Posee autorización de seguridad de nivel <span class='tachado'>G-7</span>. Reportes indican un uso excesivo de patadas giratorias.",
@@ -78,7 +78,8 @@ const realizarBusqueda = () => {
     const termino = inputBusqueda.value.toLowerCase().trim();
     if (termino === '') return;
 
-    const resultados = baseDatos.filter(personaje => personaje.nombre.toLowerCase().includes(termino));
+    // EL CAMBIO ESTÁ AQUÍ: Reemplazamos .includes() por ===
+    const resultados = baseDatos.filter(personaje => personaje.nombre.toLowerCase() === termino);
 
     if (resultados.length > 0) {
         const personaje = resultados[0]; // Tomamos el primer resultado
@@ -127,7 +128,7 @@ const realizarBusqueda = () => {
 
     } else {
         // Si no se encuentra, mostramos alerta y cerramos la carpeta
-        alert("Sujeto no encontrado en los registros.");
+        alert("Sujeto no encontrado en los registros. Verifique el nombre completo.");
         carpetaFisica.classList.remove('carpeta-abierta');
     }
 };
