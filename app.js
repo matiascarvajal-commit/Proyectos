@@ -6,6 +6,7 @@ const baseDatos = [
         ultimaAparicion: "Continente Occidental",
         curiosidades: "Sujeto altamente impredecible. Su objetivo declarado es ser un vago, pero sus acciones indican <span class='tachado'>una manipulación psicológica a gran escala</span>. Nivel de amenaza: <span class='tachado'>Nivel Dragón</span>.",
         imagen: "https://static.wikia.nocookie.net/trash-of-the-counts-family/images/7/72/Cale29.jpg/revision/latest?cb=20210514214537",
+        imagenLocal: "img/Cale.jpg"
     },
     { 
         id: 2, nombre: "Jonathan Almendair Crespo", origen: "<span class='tachado'>Suburbios</span>", 
@@ -13,7 +14,7 @@ const baseDatos = [
         ultimaAparicion: "Zonas de Guerra (Registros de un diario personal)",
         curiosidades: "El sujeto no tiene relación alguna con <span class='tachado'>el Experimento Finn</span>. Los registros en su diario confirman que operaba de forma independiente.",
         imagen: "https://static.wikia.nocookie.net/el-diario-de-jonathan/images/0/0b/JAR.png/revision/latest?cb=20181226131138",
-        imagenLocal: ""
+        imagenLocal: "img/Jonathan.jpg"
     },
     { 
         id: 3, nombre: "Light Yagami", origen: "Kanto, Japón", 
