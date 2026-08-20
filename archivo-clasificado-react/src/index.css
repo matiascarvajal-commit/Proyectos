@@ -370,3 +370,126 @@ h1 { text-align: center; margin-bottom: 25px; font-family: 'Special Elite', mono
         transform: translateY(0) scale(1);
     }
 }
+
+/* =========================================
+   ESTILOS DE NAVEGACIÓN Y FORMULARIO
+   ========================================= */
+
+.barra-navegacion {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-nav {
+    background: transparent;
+    color: #666;
+    border: 1px solid #666;
+    padding: 10px 20px;
+    font-family: 'Special Elite', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-nav:hover, .btn-nav.activo {
+    color: #e5dcc3;
+    border-color: #e5dcc3;
+    background: rgba(229, 220, 195, 0.1);
+    box-shadow: 0 0 10px rgba(229, 220, 195, 0.2);
+}
+
+.formulario-ingreso {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.formulario-ingreso input, .formulario-ingreso textarea {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #b3a886;
+    color: #e5dcc3;
+    padding: 12px;
+    font-family: 'Special Elite', monospace;
+    font-size: 1rem;
+}
+
+.formulario-ingreso textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-archivar {
+    background: #222;
+    color: #e5dcc3;
+    border: 2px solid #e5dcc3;
+    padding: 15px;
+    font-family: 'Special Elite', monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.btn-archivar:hover {
+    background: #e5dcc3;
+    color: #111;
+}
+
+/* =========================================
+   ESTILOS DE SUBIDA DE EVIDENCIA
+   ========================================= */
+.seccion-archivos {
+    border: 1px dashed #b3a886;
+    padding: 15px;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.texto-terminal-pequeno {
+    color: #deff9a;
+    font-family: 'Special Elite', monospace;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.grupo-archivo {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-archivo label {
+    color: #e5dcc3;
+    font-family: 'Special Elite', monospace;
+    font-size: 0.9rem;
+}
+
+.input-archivo {
+    background: #111 !important;
+    color: #b3a886 !important;
+    border: 1px solid #666 !important;
+    padding: 8px !important;
+    cursor: pointer;
+}
+
+/* Cambiar el estilo del botón interno del input file */
+.input-archivo::file-selector-button {
+    background: #333;
+    color: #e5dcc3;
+    border: 1px solid #b3a886;
+    padding: 5px 15px;
+    font-family: 'Special Elite', monospace;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.input-archivo::file-selector-button:hover {
+    background: #b3a886;
+    color: #111;
+}
