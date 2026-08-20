@@ -1,0 +1,23 @@
+# ETAPA 1: Compilación (Entorno de construcción)
+FROM node:20-alpine as builder
+WORKDIR /app
+
+# Copiamos manifiestos e instalamos dependencias
+COPY package*.json ./
+RUN npm install
+
+# Copiamos el código fuente y compilamos la versión de producción
+COPY . .
+RUN npm run build
+
+# ETAPA 2: Producción (Servidor Web Nginx)
+FROM nginx:alpine
+
+# Extraemos solo los archivos finales compilados de la Etapa 1
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Exponemos el puerto estándar web
+EXPOSE 80
+
+# Mantenemos Nginx corriendo en primer plano
+CMD ["nginx", "-g", "daemon off;"]
