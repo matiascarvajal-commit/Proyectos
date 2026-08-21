@@ -1,0 +1,29 @@
+services:
+  # 1. LA BÓVEDA NOSQL (Para tus expedientes asimétricos)
+  motor-mongo:
+    image: mongo:latest
+    container_name: boveda_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - datos_mongo:/data/db
+    restart: always
+
+  # 2. LA BÓVEDA RELACIONAL (Para futuras tablas estrictas)
+  motor-postgres:
+    image: postgres:latest
+    container_name: boveda_postgres
+    environment:
+      POSTGRES_USER: agente_admin
+      POSTGRES_PASSWORD: password_seguro
+      POSTGRES_DB: inteligencia_relacional
+    ports:
+      - "5432:5432"
+    volumes:
+      - datos_postgres:/var/lib/postgresql/data
+    restart: always
+
+# 3. DISCOS DUROS VIRTUALES (Persistencia)
+volumes:
+  datos_mongo:
+  datos_postgres:
