@@ -1,41 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-
-// La base de datos original ahora es solo el "estado inicial"
-const baseDatosInicial = [
-    { 
-        id: 1, nombre: "Cale Henituse", origen: "Familia Henituse / Corea del Sur", 
-        rol: "Estratega / Comandante Supremo", estado: "Activo",
-        ultimaAparicion: "Continente Occidental",
-        curiosidades: "Sujeto altamente impredecible. Su objetivo declarado es ser un vago. Nivel de amenaza: Nivel Dragón.",
-        imagen: "https://static.wikia.nocookie.net/trash-of-the-counts-family/images/7/72/Cale29.jpg",
-        imagenLocal: "img/Cale.jpg" 
-    },
-    { 
-        id: 2, nombre: "Jonathan Almendair Crespo", origen: "Suburbios", 
-        rol: "Sobreviviente", estado: "Paradero Desconocido",
-        ultimaAparicion: "Zonas de Guerra",
-        curiosidades: "El sujeto no tiene relación alguna con el Experimento Finn. Los registros en su diario confirman que operaba de forma independiente.",
-        imagen: "https://static.wikia.nocookie.net/el-diario-de-jonathan/images/0/0b/JAR.png",
-        imagenLocal: "img/Jonathan.png" 
-    },
-    { 
-        id: 3, nombre: "Light Yagami", origen: "Kanto, Japón", 
-        rol: "Estudiante / Alias: Kira", estado: "Eliminado",
-        ultimaAparicion: "Almacén Yellow Box",
-        curiosidades: "Responsable de la eliminación de miles de criminales a nivel mundial.",
-        imagen: "https://link-de-internet-falso-para-probar.com/light.jpg", 
-        imagenLocal: "img/Light.jpg" 
-    },
-    { 
-        id: 4, nombre: "Leon Scott Kennedy", origen: "R.P.D. / D.S.O.", 
-        rol: "Agente Especial", estado: "Activo",
-        ultimaAparicion: "Misión: Investigacion Virus T",
-        curiosidades: "Sobrevivió al incidente de Raccoon City. Reportes indican un uso excesivo de patadas giratorias.",
-        imagen: "https://images7.alphacoders.com/140/thumb-1920-1408267.png",
-        imagenLocal: "img/Leon.png" 
-    }
-];
 
 function App() {
   // --- ESTADOS DEL SISTEMA ---
@@ -45,17 +9,32 @@ function App() {
   const [mensajeError, setMensajeError] = useState('');
 
   // --- ESTADOS DE LA BASE DE DATOS Y VISTAS ---
-  const [registros, setRegistros] = useState(baseDatosInicial); // La BD ahora es un estado
-  const [vistaActual, setVistaActual] = useState('buscador'); // 'buscador' o 'registro'
+  const [registros, setRegistros] = useState([]); 
+  const [vistaActual, setVistaActual] = useState('buscador'); 
   const [terminoBusqueda, setTerminoBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
 
-  // --- ESTADOS DEL NUEVO FORMULARIO ---
+  // --- MEMORIA DEL FORMULARIO ---
   const [nuevoSujeto, setNuevoSujeto] = useState({
       nombre: '', origen: '', rol: '', estado: '', ultimaAparicion: '', curiosidades: '', imagen: '', imagenLocal: ''
   });
 
-  // --- FUNCIONES ---
+  // --- CARGAR DATOS DESDE LA BÓVEDA ---
+  useEffect(() => {
+      const extraerExpedientes = async () => {
+          try {
+              const respuesta = await fetch('http://localhost:5000/api/sujetos');
+              const datos = await respuesta.json();
+              setRegistros(datos);
+          } catch (error) {
+              console.error("[ ERROR DE ENLACE ] No se pudo contactar a la Aduana.");
+          }
+      };
+      
+      extraerExpedientes();
+  }, [estaAutenticado]);
+
+  // --- FUNCIONES DEL SISTEMA ---
   const manejarLogin = () => {
     if (usuario.toLowerCase() === 'admin' && password === '1234') {
         setMensajeError('');
@@ -78,38 +57,79 @@ function App() {
     setResultados(encontrados);
   };
 
-  // --- NUEVA FUNCIÓN: Leer archivo del disco duro ---
-  const manejarSubidaImagen = (e) => {
+const manejarSubidaImagen = (e) => {
       const archivo = e.target.files[0];
       if (archivo) {
-          // Crea un enlace temporal en la memoria del navegador para la foto
-          const urlTemporal = URL.createObjectURL(archivo);
-          setNuevoSujeto({ ...nuevoSujeto, imagenLocal: urlTemporal });
+          // Usamos FileReader para convertir la foto física en texto (Base64)
+          const lector = new FileReader();
+          
+          lector.onloadend = () => {
+              // Una vez que termina de leerla, guardamos el texto resultante en el estado
+              setNuevoSujeto({ ...nuevoSujeto, imagenLocal: lector.result });
+          };
+          
+          // Le ordenamos que inicie la conversión
+          lector.readAsDataURL(archivo);
       }
   };
 
-  const archivarNuevoSujeto = () => {
-      // SEGURO DE DATOS: Evitar expedientes sin nombre
+  const archivarNuevoSujeto = async () => {
       if (nuevoSujeto.nombre.trim() === '') {
-          alert("[ ERROR DEL SISTEMA ] - Se requiere el Nombre o Alias del sujeto para abrir un expediente.");
+          alert("[ ERROR DEL SISTEMA ] - Se requiere el Nombre o Alias.");
           return;
       }
 
-      const nuevoId = registros.length + 1;
-      
       const sujetoFinal = { 
           ...nuevoSujeto, 
-          id: nuevoId, 
-          // Si el agente no subió una foto local, usamos una silueta genérica de respaldo
-          imagenLocal: nuevoSujeto.imagenLocal !== '' ? nuevoSujeto.imagenLocal : 'img/leon.png' 
+          imagenLocal: nuevoSujeto.imagenLocal !== '' ? nuevoSujeto.imagenLocal : '/img/Leon.jpg' 
       };
 
-      setRegistros([...registros, sujetoFinal]);
+      try {
+          const respuesta = await fetch('http://localhost:5000/api/sujetos', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(sujetoFinal)
+          });
 
-      // Limpiamos el formulario
-      setNuevoSujeto({nombre: '', origen: '', rol: '', estado: '', ultimaAparicion: '', curiosidades: '', imagen: '', imagenLocal: ''});
-      setVistaActual('buscador');
-      setResultados([sujetoFinal]);
+          if (respuesta.ok) {
+              const sujetoGuardado = await respuesta.json();
+              setRegistros([...registros, sujetoGuardado]);
+              setNuevoSujeto({nombre: '', origen: '', rol: '', estado: '', ultimaAparicion: '', curiosidades: '', imagen: '', imagenLocal: ''});
+              setVistaActual('buscador');
+              setResultados([sujetoGuardado]);
+          }
+      } catch (error) {
+          alert("[ ERROR DE TRANSMISIÓN ] - La Bóveda rechazó la conexión.");
+      }
+  };
+
+  const eliminarSujeto = async (idMongo) => {
+      const autorizacion = window.confirm("[ ALERTA ] - ¿Autoriza la destrucción permanente de este expediente?");
+      if (!autorizacion) return;
+
+      console.log("Enviando orden de purga para el ID:", idMongo);
+
+      try {
+          const respuesta = await fetch(`http://localhost:5000/api/sujetos/${idMongo}`, {
+              method: 'DELETE'
+          });
+
+          if (respuesta.ok) {
+              const nuevosRegistros = registros.filter(personaje => personaje._id !== idMongo);
+              setRegistros(nuevosRegistros);
+              
+              const nuevosResultados = resultados.filter(personaje => personaje._id !== idMongo);
+              setResultados(nuevosResultados);
+              
+              alert("[ SISTEMA ] - Expediente purgado de la base de datos.");
+          } else {
+              alert("[ ALERTA ] - La Aduana recibió la orden, pero la Bóveda no pudo borrarlo.");
+          }
+      } catch (error) {
+          alert("[ ERROR CRÍTICO ] - La orden no pudo llegar a la Aduana. ¿Está encendido el servidor?");
+      }
   };
 
   // --- INTERFAZ DEL ESCRITORIO ---
@@ -135,7 +155,7 @@ function App() {
                           </button>
                       </div>
 
-                      {/* VISTA 1: EL BUSCADOR (Igual que antes) */}
+                      {/* VISTA 1: EL BUSCADOR */}
                       {vistaActual === 'buscador' && (
                           <>
                               <div id="carpeta-fisica" className="carpeta-clasificada abierta">
@@ -156,7 +176,7 @@ function App() {
 
                               <div id="zona-documentos">
                                   {resultados.map((personaje) => (
-                                      <div key={personaje.id} className="hoja-personaje hoja-entrante">
+                                      <div key={personaje._id || personaje.id} className="hoja-personaje hoja-entrante">
                                           <div className="sello-confidencial">CONFIDENCIAL</div>
                                           <div className="cabecera-hoja">
                                               <div className="datos-principales">
@@ -178,6 +198,14 @@ function App() {
                                               <p>{personaje.ultimaAparicion}</p>
                                               <h3>[ NOTAS DEL AGENTE ]</h3>
                                               <p>{personaje.curiosidades}</p>
+                                              
+                                              {/* EL BOTÓN DE PURGA CONECTADO */}
+                                              <button 
+                                                  className="btn-eliminar" 
+                                                  onClick={() => eliminarSujeto(personaje._id || personaje.id)}
+                                              >
+                                                  [ DESTRUIR EXPEDIENTE ]
+                                              </button>
                                           </div>
                                       </div>
                                   ))}
@@ -205,7 +233,12 @@ function App() {
                                       
                                       <div className="grupo-archivo">
                                           <label>Opción B: Subir evidencia local (Último avistamiento)</label>
-                                          <input type="file" accept="image/*" onChange={manejarSubidaImagen} className="input-archivo" />
+                                          <input 
+                                                type="file" 
+                                                accept=".jpg, .jpeg, .png, .webp" 
+                                                onChange={manejarSubidaImagen} 
+                                                className="input-archivo" 
+                                            />
                                       </div>
                                   </div>
                                   

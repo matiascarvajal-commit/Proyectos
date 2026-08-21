@@ -2,13 +2,19 @@
 
 body {
     background-color: #050505;
-    color: #111;
+    color: #e5dcc3;
     font-family: 'Courier New', Courier, monospace;
-    overflow: hidden; /* Evita barras de desplazamiento durante animaciones */
-    height: 100vh;
+    
+    /* --- NUEVAS DIRECTIVAS DE DESPLAZAMIENTO --- */
+    min-height: 100vh;       /* Permite que el fondo crezca según el tamaño del expediente */
+    overflow-y: auto;        /* Activa la barra de desplazamiento vertical */
+    
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Evita que el contenido se corte en la parte superior */
+    
+    padding-top: 40px;       /* Le da un margen de aire al sistema arriba */
+    padding-bottom: 60px;    /* Le da un margen de aire abajo */
 }
 
 /* --- CONTROL DE PANTALLAS --- */
@@ -492,4 +498,26 @@ h1 { text-align: center; margin-bottom: 25px; font-family: 'Special Elite', mono
 .input-archivo::file-selector-button:hover {
     background: #b3a886;
     color: #111;
+}
+
+/* =========================================
+   BOTÓN DE DESTRUCCIÓN
+   ========================================= */
+.btn-eliminar {
+    background: rgba(255, 0, 0, 0.1);
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+    padding: 10px 15px;
+    font-family: 'Special Elite', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.btn-eliminar:hover {
+    background: #ff4d4d;
+    color: #111;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
 }

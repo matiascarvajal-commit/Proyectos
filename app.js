@@ -21,7 +21,7 @@ const baseDatos = [
         rol: "Estudiante / <span class='tachado'>Alias: Kira</span>", estado: "Eliminado",
         ultimaAparicion: "Almacén Yellow Box",
         curiosidades: "Responsable de la eliminación de <span class='tachado'>miles de criminales a nivel mundial</span> utilizando el artefacto designado como [ARCHIVO D.N.].",
-        imagen: "https://wallpapers-clan.com/wp-content/uploads/2022/12/death-note-light-yagami-pfp-14.jpg",
+        imagen: "https://wallpapers-clan.com/wp-content/uploads/2022/12/death-note-light-yagami-pfp-14.jpx",
         imagenLocal: "img/Light.jpg"
     },
     { 
@@ -29,7 +29,7 @@ const baseDatos = [
         rol: "Agente Especial", estado: "Activo",
         ultimaAparicion: "Misión: <span class='tachado'>Investigacion Virus T, Sujeto Infectado</span>",
         curiosidades: "Sobrevivió al incidente de Raccoon City. Posee autorización de seguridad de nivel <span class='tachado'>G-7</span>. Reportes indican un uso excesivo de patadas giratorias.",
-        imagen: "https://images7.alphacoders.com/140/thumb-1920-1408267.png",
+        imagen: "https://images7.alphacoders.com/140/thumb-1920-1408267.pnx",
         imagenLocal: "img/Leon.jpg"
     }
 ];
